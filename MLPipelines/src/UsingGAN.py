@@ -50,7 +50,7 @@ class SyntheticDataGeneratorRCTGAN:
         output = {}
         for key in real_data.keys():
             data = {}
-            report = Image.open(f'{self.REPORTS_PATH}{key}/{key}_1.png')
+            report = Image.open(f'{self.REPORTS_PATH}{key}/{key}.png')
             data['real_data'] = real_data[key]
             data['synthetic_data'] = synthetic_data[key]
             data['reports'] = report
