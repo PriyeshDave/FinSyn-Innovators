@@ -81,11 +81,6 @@ class DataAnalyzer:
         """
         Generate insights for a column using LLM.
         """
-        with st.spinner(f"Gererating statistical insights for {column_name}..."):
-            progress = st.progress(0)
-            for i in range(100):  
-                time.sleep(0.02) 
-                progress.progress(i + 1)
         prompt = f"""
         Analyze the following statistical summary for the column '{column_name}':
         {stats.to_string()}
@@ -143,7 +138,7 @@ class DataAnalyzer:
             "columns": {}
         }
 
-        for column in dataset.columns:
+        for column in dataset.columns[:1]:
             column_data = {
                 "plots": {},
                 "insight": ""
@@ -162,5 +157,5 @@ class DataAnalyzer:
             column_data["insight"] = self.generate_column_insight(column, column_stats)
 
             payload["columns"][column] = column_data
-        payload['statistical_inference'] = payload
+        payload['structured_data_insights'] = payload
         return payload

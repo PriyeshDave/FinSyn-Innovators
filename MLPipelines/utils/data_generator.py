@@ -56,11 +56,10 @@ class SyntheticDataGenerator:
         csv_data = synthetic_data_text[start_index:end_index].strip()
         synthetic_data = pd.read_csv(StringIO(csv_data))
         synthetic_data.columns = reference_data.columns[:len(reference_data.columns)]
+        return synthetic_data
 
-        return self.generate_synthetic_data_payload(synthetic_data)
 
-
-    def generate_textual_data(self, reference_text: str, num_samples: int, column_name) -> list:
+    def generate_textual_data(self, reference_text: str, column_name, num_samples: int) -> list:
         prompt = f"Generate {num_samples} synthetic samples based on the following text:\n{reference_text}"
         response = self.client.chat.completions.create(model="gpt-4",
         messages=[
@@ -71,7 +70,7 @@ class SyntheticDataGenerator:
         synthetic_data = pd.DataFrame(synthetic_texts, columns=[column_name])
         synthetic_data.dropna(inplace=True)
         synthetic_data.reset_index(inplace=True, drop=True)
-        return self.generate_synthetic_data_payload(synthetic_data)
+        return synthetic_data
     
 
 
