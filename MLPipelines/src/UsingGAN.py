@@ -4,7 +4,6 @@ import logging
 import os
 from PIL import Image
 
-
 class SyntheticDataGeneratorRCTGAN:
     def __init__(self):
         logging.info('          - initialising the SyntheticDataGeneratorRCTGAN class object')
@@ -57,8 +56,6 @@ class SyntheticDataGeneratorRCTGAN:
             output[key] = data
         print(output)
         return output
-
-
 
 
 if __name__ == '__main__':
