@@ -125,7 +125,6 @@ class DriftDetector:
         return add_html_to_payload(textual_data_drift_preset_report.get_html())
 
 
-
     def get_textual_data_embeddings_countour_plots(self, embedded_reference_data, embedded_current_data):
         """
         Generates 3 subplots for embedding contour plots:
@@ -213,7 +212,6 @@ class DriftDetector:
         return payload
     
 
-
     def get_embeddings_drift_reports(self, embedded_reference_data, embedded_current_data):
         ref_embeddings = embedded_reference_data['embeddings'].to_list()
         curr_embeddings = embedded_current_data['embeddings'].to_list() 
@@ -244,7 +242,6 @@ class DriftDetector:
         return add_html_to_payload(embedding_drif_mmd_report.get_html())
     
 
-
     def textual_data_drift_reports(self, reference_data, current_data, text_column):
         embedded_reference_data, embedded_current_data = self.generate_embeddings(reference_data,
                                                                                   current_data,
@@ -265,10 +262,5 @@ class DriftDetector:
         textual_drift_report_payload['textual_embeddings_drift_mmd_report'] = textual_embeddings_drift_mmd_report
 
         return textual_drift_report_payload
-    
-        
-
-        
-
 
 

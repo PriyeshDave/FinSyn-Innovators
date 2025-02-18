@@ -162,27 +162,5 @@ class DataAnalyzer:
             column_data["insight"] = self.generate_column_insight(column, column_stats)
 
             payload["columns"][column] = column_data
-
+        payload['statistical_inference'] = payload
         return payload
-    
-
-
-
-    # def show_plots_and_insights(self, dataset):
-    #     summary_stats = self.generate_summary_statistics(dataset)
-    #     st.dataframe(summary_stats)
-    #     for column in dataset.columns:
-    #         st.write(f"### Column: {column}")
-    #         column_plots = self.generate_column_plot_plotly(dataset, column)
-    #         if column_plots:
-    #             for plot_name, fig in column_plots.items():
-    #                 st.write(f"**{plot_name.replace('_', ' ').title()}**")
-    #                 st.plotly_chart(fig, use_container_width=True)
-    #         else:
-    #             pass
-    #             st.write(f"No plots available for column: {column} (non-numeric data).")
-
-    #         column_stats = summary_stats.loc[column]
-    #         column_insight = self.generate_column_insight(column, column_stats)
-    #         st.write("**Insights:**")
-    #         st.info(column_insight)
