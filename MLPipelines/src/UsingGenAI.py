@@ -2,6 +2,7 @@ import pandas as pd
 from utils.data_generator import SyntheticDataGenerator
 from utils.drift_detector import DriftDetector
 from utils.data_analyzer import DataAnalyzer
+from utils.data_generator_using_meta_info import DataGenerationUsingMetaInfo
 import openai
 import os
 from dotenv import load_dotenv
@@ -18,6 +19,7 @@ class SyntheticDataGeneratorUsingGenAI():
         self.data_generator = SyntheticDataGenerator(api_key=self.OPENAI_API_KEY)
         self.data_analyzer = DataAnalyzer(api_key=self.OPENAI_API_KEY)
         self.drift_detector = DriftDetector()
+        self.data_generator_using_meta_info = DataGenerationUsingMetaInfo(api_key=self.OPENAI_API_KEY)
 
 
     def get_structured_data_insights(self, real_data):  
@@ -46,6 +48,23 @@ class SyntheticDataGeneratorUsingGenAI():
         unstructured_synthetic_data_payload['synthetic_data'] = synthetic_data
         unstructured_synthetic_data_payload['drift_report'] = drift_reports_payload
 
+
+    def get_schema_from_users_prompt(self, user_prompt):
+        schema = self.data_generator_using_meta_info.get_metadata_from_llm(user_prompt)
+        return schema
+    
+    
+    def generate_synthetic_data_from_metadata(self, schema, schema_data, num_rows):
+        synthetic_data = self.data_generator_using_meta_info.generate_synthetic_data_llm(
+                schema,
+                schema_data,
+                num_rows
+            )
+        payload = {}
+        payload['synthetic_data'] = synthetic_data
+        return payload
+
+ 
 
 if __name__ == '__main__':
     syn_data_gen = SyntheticDataGeneratorUsingGenAI()
